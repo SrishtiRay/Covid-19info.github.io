@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html> 
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+	</head>
+	<style>
+
+		body {
+			background-image: url(Covid19_Thumbnail.png); 
+			background-repeat: no-repeat; 
+			background-size: cover;
+			background-position: center;
+			height: 100vh;
+		}
+        .chat_history{
+			
+		}
+		#user {
+			border: 1px solid  #f2f2f2;
+			border-radius: 15px;
+			margin-bottom: 5px;
+			background-color: #f2f2f2;
+			color: #000;
+			padding: 10px;
+			
+		}
+		#bot {
+			border: 1px solid #ff3333;
+			border-radius: 15px;
+			margin-bottom: 5px;
+			background-color: #ff3333;
+			color: #ffffff;
+			padding: 10px;
+		}
+		p {
+			font-style: italic;
+		}
+		.chat-btn {
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+		}
+		.chat_container {
+			position: absolute;
+			overflow-y: auto;
+			top:0;
+			right: 10px;
+			bottom: 60px;
+			display: block;
+			width: 30%;
+			background: rgba(255, 153, 153, 0.4);
+			border-radius: 10px;
+			padding: 10px;
+
+		}
+		input.chatbar {
+			width: 75%;
+		    border: none;
+		    background: #fafafa !important;
+		    font-size: 20px;
+		}
+		.wrapper {
+			background-color: #ffffe6;
+		    text-align: center;
+		    padding: 5px;
+		    border-radius: 5px;
+		}
+		/* width */
+		.chat_container::-webkit-scrollbar {
+		  width: 7px;
+		}
+
+		/* Track */
+		.chat_container::-webkit-scrollbar-track {
+		  box-shadow: inset 0 0 5px grey; 
+		  border-radius: 10px;
+		}
+		 
+		/* Handle */
+		.chat_container::-webkit-scrollbar-thumb {
+		  background: red; 
+		  border-radius: 10px;
+		}
+
+		/* Handle on hover */
+		.chat_container::-webkit-scrollbar-thumb:hover {
+		  background: #b30000; 
+		}
+		button:focus {
+        	outline: none !important;
+      	}
+		input:focus {
+        	outline: none !important;
+      	}	
+
+      	.chatbot_heading {
+      		text-align: left;
+		    color: #fff;
+		    position: absolute;
+		    top: 10%;
+		    background-color: orangered;
+		    /* opacity: 0.2; */
+		    resize: none;
+		    left: 28%;
+      	}
+
+		
+	</style>
+	<body> 
+		<div class="chatbot_heading"><h1>Check Your Symptoms Here:</h1></div>
+		<button style='font-size:18px' class="btn btn-success text-white chat-btn">Chat | <i class='fas fa-comment'></i></button>
+		<div class="chat_container" style="display: none;">
+			
+				<div class="wrapper"><input type="text" class="chatbar" name="user_ip" id="user_ip" placeholder="say hi">
+				<button type="button" onclick="user_submit()" class="btn btn-light border-round"><i class='far fa-hand-point-up' style='font-size:20px; color: #ff1a1a;'></i></button></div>
+				
+			
+			<hr>
+			<div class="chat_history">
+			</div>
+		</div>
+		</div>
+		
+	</body>
+	<script>
+		$(document).ready(function () {
+		    $(".chat-btn").click(function () {
+		        $(".chat_container").toggle();
+		    });
+		});
+		function user_submit() {
+			var inpt;
+			var ans;
+			inpt = $("#user_ip").val();
+			if(inpt == 'hi' || inpt == 'hello' || inpt == 'hey') {
+				$('<div id="user"><span class="u_name">Visitor: </span><p>' + $("#user_ip").val() + '</p></div>').appendTo('.chat_history');
+				$('<div id="bot"><span>Bot: </span><p>Hello, <br> How may i help you? <br> Do you want to check your covid symptoms? If yes, Type 1</p></div>').appendTo('.chat_history');
+			}
+			else if(inpt == '1' || inpt == 'ya' || inpt == 'yup'|| inpt == 'yeah') {
+				$('<div id="user"><span>Visitor: </span><p>' + $("#user_ip").val() + '</p></div>').appendTo('.chat_history');
+				$('<div id="bot"><span>Bot: </span><p>Okay, let me know your gender!</p><br></div>').appendTo('.chat_history');
+			}
+			else if(inpt == 'male' || inpt == 'female' || inpt == 'other') {
+				$('<div id="user"><span>Visitor: </span><p>' + $("#user_ip").val() + '</p></div>').appendTo('.chat_history');
+				$('<div id="bot"><span>bot: </span><p>Okay, how old are you?</p></div>').appendTo('.chat_history');
+			}
+			else if(inpt >= parseInt('18') && inpt <= parseInt('90')){
+				$('<div id="user"><span>Visitor: </span><p>' + $("#user_ip").val() + '</p></div>').appendTo('.chat_history');
+				$('<div id="bot"><span>Bot: </span><p>Okay, have you experienced cold and cough or sudden breathing problems in recent days?</p></div>').appendTo('.chat_history');
+			}
+			else if(inpt <= parseInt('18')) {
+				$('<div id="user"><span>Visitor: </span><p>' + $("#user_ip").val() + '</p></div>').appendTo('.chat_history');
+				$('<div id="bot"><span>bot: </span><p>Okay, you are too little to get infected. take care.</p></div>').appendTo('.chat_history');
+			}
+			else if(inpt == 'yes, i have' || inpt == 'i have these symptoms'||inpt == 'yes' ) {
+				$('<div id="user"><span>Visitor: </span><p>' + $("#user_ip").val() + '</p></div>').appendTo('.chat_history');
+				$('<div id="bot"><span>Bot: </span><p>Alright! what has been your body temperature in the most recent days?</p></div>').appendTo('.chat_history');
+			}
+			else if(inpt == 'no' || inpt == 'no, i dont') {
+				$('<div id="user"><span>Visitor: </span><p>' + $("#user_ip").val() + '</p></div>').appendTo('.chat_history');
+				$('<div id="bot"><span>Bot: </span><p>You are not at risk, please take care.</p></div>').appendTo('.chat_history');
+			}
+			else if(inpt >= parseInt('98.6') && inpt <= parseInt('100')) {
+				$('<div id="user"><span>Visitor: </span><p>' + $("#user_ip").val() + '</p></div>').appendTo('.chat_history');
+				$('<div id="bot"><span>Bot: </span><p>You have lower risks, please take care.</p></div>').appendTo('.chat_history');
+			}
+			else if(inpt >= parseInt('100')) {
+				$('<div id="user"><span>Visitor: </span><p>' + $("#user_ip").val() + '</p></div>').appendTo('.chat_history');
+				$('<div id="bot"><span>Bot: </span><p>You have higher risks, please get tested.</p><br><a href="https://www.who.int/health-topics/coronavirus#tab=tab_3" target="_blank">For more detais,visit this page</a></div>').appendTo('.chat_history');
+			}
+			else {
+				$('<div id="user"><span>Visitor: </span><p>' + $("#user_ip").val() + '</p></div>').appendTo('.chat_history');
+				$('<div id="bot"><span>Bot: </span><p>Sorry, i could not understand your query. I am not trained to answer it.</p></div>').appendTo('.chat_history');
+			}
+
+			console.log(inpt);
+			//document.getElementById("chatbot").reset();
+
+		}
+	</script>
+	
+</html>
